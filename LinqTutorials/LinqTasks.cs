@@ -201,7 +201,8 @@ namespace LinqTutorials
         /// </summary>
         public static int Task3()
         {
-            int result = 0;
+            int result = return Emps
+                .Max(emp => emp.Salary);
             return result;
         }
 
@@ -210,7 +211,9 @@ namespace LinqTutorials
         /// </summary>
         public static IEnumerable<Emp> Task4()
         {
-            IEnumerable<Emp> result = null;
+            IEnumerable<Emp> result = Emps
+                .Where(emp => emp.Salary == (Emps.Max(emp => emp.Salary)) )
+                .Select();;
             return result;
         }
 
@@ -219,7 +222,8 @@ namespace LinqTutorials
         /// </summary>
         public static IEnumerable<object> Task5()
         {
-            IEnumerable<object> result = null;
+            IEnumerable<object> result =  Emps
+                .Select(emp => new { Nazwisko = emp.Ename, Praca = emp.Job });
             return result;
         }
 
@@ -230,8 +234,10 @@ namespace LinqTutorials
         /// </summary>
         public static IEnumerable<object> Task6()
         {
-            IEnumerable<object> result = null;
-            return result;
+            //IEnumerable<object> result = Emps.Join(Depts, emp => emp.Deptno, dept => dept.Deptno,
+              //               (emp, dept) => new { emp.Ename, emp.Job, dept.Dname })
+                //       .ToList();
+            //return result;
         }
 
         /// <summary>
@@ -239,7 +245,9 @@ namespace LinqTutorials
         /// </summary>
         public static IEnumerable<object> Task7()
         {
-            IEnumerable<object> result = null;
+            IEnumerable<object> result = Emps.GroupBy(emp => emp.Job)
+                       .Select(group => new { job = group.Key, empNr = group.Count() })
+                       ;
             return result;
         }
 
@@ -249,7 +257,8 @@ namespace LinqTutorials
         /// </summary>
         public static bool Task8()
         {
-            bool result = false;
+            bool result = Emps.Count(emp => emp.Job == "Backend programmer") > 0;
+                
             return result;
         }
 
@@ -259,7 +268,10 @@ namespace LinqTutorials
         /// </summary>
         public static Emp Task9()
         {
-            Emp result = null;
+            Emp result = Emps
+                .Where(emp => emp.Job == "Frontend programmer")
+                .OrderBy(e => e.HireDate)
+                .Select();
             return result;
         }
 
