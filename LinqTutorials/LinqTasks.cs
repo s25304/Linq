@@ -190,7 +190,7 @@ namespace LinqTutorials
         {
             IEnumerable<Emp> result = Emps
                 .Where(emp => emp.Job == "Frontend programmer" && emp.Salary > 1000)
-                .OrderBy(Emp => Emp.Ename)
+                .OrderByDescending(Emp => Emp.Ename)
                 .ToList();
             return result;
         }
@@ -273,7 +273,7 @@ namespace LinqTutorials
         {
             Emp result = Emps
                 .Where(emp => emp.Job == "Frontend programmer")
-                .OrderBy(e => e.HireDate)
+                .OrderByDescending(e => e.HireDate)
                 .First();
             return result;
         }
@@ -285,7 +285,8 @@ namespace LinqTutorials
         /// </summary>
         public static IEnumerable<object> Task10()
         {
-            IEnumerable<object> result = null;
+            IEnumerable<object> result = Emps
+                .Select(emp => new { Ename = emp.Ename, Job = emp.Job, Hiredate = emp.HireDate });
             return result;
         }
 
