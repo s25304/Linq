@@ -179,7 +179,7 @@ namespace LinqTutorials
         {
             IEnumerable<Emp> result = Emps
                 .Where(emp => emp.Job == "Backend programmer")
-                .Select(emp => emp);
+                .ToList();
             return result;
         }
 
@@ -191,7 +191,7 @@ namespace LinqTutorials
             IEnumerable<Emp> result = Emps
                 .Where(emp => emp.Job == "Frontend programmer" && emp.Salary > 1000)
                 .OrderBy(Emp => Emp.Ename)
-                .Select(emp => emp);
+                .ToList();
             return result;
         }
 
@@ -201,7 +201,7 @@ namespace LinqTutorials
         /// </summary>
         public static int Task3()
         {
-            int result = return Emps
+            int result = Emps
                 .Max(emp => emp.Salary);
             return result;
         }
@@ -213,7 +213,7 @@ namespace LinqTutorials
         {
             IEnumerable<Emp> result = Emps
                 .Where(emp => emp.Salary == (Emps.Max(emp => emp.Salary)) )
-                .Select();;
+                .ToList();
             return result;
         }
 
@@ -223,7 +223,8 @@ namespace LinqTutorials
         public static IEnumerable<object> Task5()
         {
             IEnumerable<object> result =  Emps
-                .Select(emp => new { Nazwisko = emp.Ename, Praca = emp.Job });
+                .Select(emp => new { Nazwisko = emp.Ename, Praca = emp.Job })
+                .ToList();
             return result;
         }
 
@@ -234,10 +235,12 @@ namespace LinqTutorials
         /// </summary>
         public static IEnumerable<object> Task6()
         {
-            //IEnumerable<object> result = Emps.Join(Depts, emp => emp.Deptno, dept => dept.Deptno,
-              //               (emp, dept) => new { emp.Ename, emp.Job, dept.Dname })
-                //       .ToList();
-            //return result;
+            IEnumerable<object> result = Emps
+                .Join(Depts, emp => emp.Deptno, dept => dept.Deptno,
+                             (emp, dept) => new { emp.Ename, emp.Job, dept.Dname }
+                             )
+                .ToList();
+            return result;
         }
 
         /// <summary>
@@ -246,8 +249,8 @@ namespace LinqTutorials
         public static IEnumerable<object> Task7()
         {
             IEnumerable<object> result = Emps.GroupBy(emp => emp.Job)
-                       .Select(group => new { job = group.Key, empNr = group.Count() })
-                       ;
+                .Select(group => new { job = group.Key, empNr = group.Count() })
+                .ToList();
             return result;
         }
 
@@ -271,7 +274,7 @@ namespace LinqTutorials
             Emp result = Emps
                 .Where(emp => emp.Job == "Frontend programmer")
                 .OrderBy(e => e.HireDate)
-                .Select();
+                .First();
             return result;
         }
 
